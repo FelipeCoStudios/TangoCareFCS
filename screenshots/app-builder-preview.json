@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "TangoWorld",
+      "hasCanvas": true,
+      "bodyTextLen": 1110,
+      "bodyTextHash": "46ed58435827c1fc141ff4c7c6696405223657252d49fe0759b777c120860278",
+      "bodyTextPrefix": "🐾 TangoWorld TU PEQUEÑA GRAN AVENTURA 🎁 Regalo diario ✦ 45 mon",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "TangoWorld",
+      "hasCanvas": true,
+      "bodyTextLen": 1013,
+      "bodyTextHash": "27770f874b2eb53f3524611aaa4ed6b676020b3b22af3023fa4b409003f0cc0f",
+      "bodyTextPrefix": "🐾 TangoWorld TU PEQUEÑA GRAN AVENTURA 🎁 ✦ 45 🔊 ⚙️ TU REFUGIO ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
