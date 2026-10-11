@@ -6,22 +6,22 @@ const SAVE_KEY = 'tangoworld-save-v1';
 const MAX_OFFLINE_SECONDS = 12 * 60 * 60;
 
 const SKINS = [
-  { id: 'dog_star', name: 'Estrellita', price: 0, rarity: 'Inicial', desc: 'Tu compañero de aventuras, siempre listo para jugar.' },
+  { id: 'dog_star', name: 'Estrella', price: 0, rarity: 'Inicial', desc: 'Acompaña cada aventura con energía y ganas de jugar.' },
   { id: 'dog_bubble', name: 'Burbujeante', price: 38, rarity: 'Común', desc: 'Una apariencia alegre, ligera y llena de burbujas.' },
-  { id: 'dog_bard', name: 'Bardo', price: 52, rarity: 'Especial', desc: 'El músico oficial de las tardes de juego.' },
+  { id: 'dog_bard', name: 'Artista musical', price: 52, rarity: 'Especial', desc: 'Ritmo para cada tarde de juego.' },
   { id: 'dog_cyborg', name: 'Cibermascota', price: 95, rarity: 'Épica', desc: 'Tecnología, luces y mucha actitud futurista.' },
   { id: 'dog_worker', name: 'Manos a la obra', price: 48, rarity: 'Común', desc: 'Siempre encuentra algo divertido que construir.' },
-  { id: 'dog_mummy', name: 'Momimiau', price: 72, rarity: 'Especial', desc: 'Un misterio adorable salido de una antigua pirámide.' },
-  { id: 'dog_boxer', name: 'Campeón', price: 66, rarity: 'Especial', desc: 'Entrenado para competir y celebrar cada victoria.' },
-  { id: 'dog_flower', name: 'Florecita', price: 56, rarity: 'Común', desc: 'Una apariencia fresca que ilumina la habitación.' },
-  { id: 'dog_mage', name: 'Pequeño mago', price: 88, rarity: 'Épica', desc: 'Un toque de magia para cada día.' },
+  { id: 'dog_mummy', name: 'Momia misteriosa', price: 72, rarity: 'Especial', desc: 'Un misterio adorable salido de una antigua pirámide.' },
+  { id: 'dog_boxer', name: 'Atleta de élite', price: 66, rarity: 'Especial', desc: 'Con espíritu competitivo y energía para celebrar cada victoria.' },
+  { id: 'dog_flower', name: 'Flor brillante', price: 56, rarity: 'Común', desc: 'Una apariencia fresca que ilumina la habitación.' },
+  { id: 'dog_mage', name: 'Magia astral', price: 88, rarity: 'Épica', desc: 'Un toque de magia para cada día.' },
   { id: 'dog_runner', name: 'Velocista', price: 62, rarity: 'Especial', desc: 'Rápido, juguetón y preparado para la carrera.' },
 ];
 
 const ITEMS = [
   { id: 'kibble', name: 'Croquetas', icon: '🥣', category: 'Comida', price: 8, desc: 'Una comida equilibrada.', effects: { hunger: 26 }, use: 'Comer' },
-  { id: 'apple', name: 'Manzana dulce', icon: '🍎', category: 'Comida', price: 7, desc: 'Un bocadito fresco y crujiente.', effects: { hunger: 17, fun: 4 }, use: 'Comer' },
-  { id: 'treat', name: 'Galletita', icon: '🦴', category: 'Comida', price: 12, desc: 'Un premio rico y divertido.', effects: { hunger: 12, fun: 13 }, use: 'Comer' },
+  { id: 'apple', name: 'Manzana dulce', icon: '🍎', category: 'Comida', price: 7, desc: 'Un bocado fresco y crujiente.', effects: { hunger: 17, fun: 4 }, use: 'Comer' },
+  { id: 'treat', name: 'Galleta', icon: '🦴', category: 'Comida', price: 12, desc: 'Un premio rico y divertido.', effects: { hunger: 12, fun: 13 }, use: 'Comer' },
   { id: 'medkit', name: 'Botiquín', icon: '🩹', category: 'Cuidados', price: 18, desc: 'Ayuda a recuperar el bienestar.', effects: { health: 34 }, use: 'Usar' },
   { id: 'soap', name: 'Jabón suave', icon: '🫧', category: 'Cuidados', price: 7, desc: 'Para un baño reluciente.', effects: {}, use: 'Usar' },
   { id: 'tennis', name: 'Pelota saltarina', icon: '🎾', category: 'Juguetes', price: 13, desc: '¡Perfecta para entretenerse!', effects: { fun: 22 }, use: 'Jugar' },
@@ -32,7 +32,7 @@ const STAT_META = {
   sleep: { label: 'Sueño', icon: '🌙', color: 'lavender', low: 'Me vendría bien una siesta.' },
   health: { label: 'Salud', icon: '💗', color: 'mint', low: 'Necesito algunos cuidados.' },
   dirt: { label: 'Limpieza', icon: '🫧', color: 'blue', low: '¡Hora de un baño!' },
-  fun: { label: 'Diversión', icon: '⭐', color: 'yellow', low: '¿Jugamos un ratito?' },
+  fun: { label: 'Diversión', icon: '⭐', color: 'yellow', low: '¿Jugamos?' },
 };
 
 const INITIAL_GAME = {
@@ -143,13 +143,13 @@ function useSound({ enabled, type = 'tap' }) {
 
 function getMood(stats, sleeping) {
   if (sleeping) return { emoji: '💤', title: 'Dulces sueños', text: 'Descansar también es una aventura.' };
-  if (stats.health < 35) return { emoji: '🩹', title: 'Necesito cuidados', text: 'Un poquito de atención me hará bien.' };
+  if (stats.health < 35) return { emoji: '🩹', title: 'Necesito cuidados', text: 'Un poco de atención ayudará a recuperar el bienestar.' };
   if (stats.hunger < 27) return { emoji: '🍎', title: '¡Tengo hambre!', text: '¿Compartimos algo rico?' };
-  if (stats.sleep < 23) return { emoji: '🥱', title: 'Tengo sueñito', text: 'Una siesta me dejaría como nuevo.' };
+  if (stats.sleep < 23) return { emoji: '🥱', title: 'Tengo sueño', text: 'Una siesta ayudará a recuperar energía.' };
   if (stats.dirt > 75) return { emoji: '🫧', title: '¡Qué baño!', text: 'Un poco de agua y jabón, por favor.' };
   if (stats.fun < 25) return { emoji: '🎾', title: '¿Jugamos?', text: '¡Tengo ganas de hacer algo divertido!' };
   if (Math.min(stats.hunger, stats.sleep, stats.health, 100 - stats.dirt, stats.fun) > 72) return { emoji: '✨', title: '¡Estoy genial!', text: 'Gracias por cuidarme tan bien.' };
-  return { emoji: '🐾', title: '¡Hola, compi!', text: '¿Qué aventura tenemos hoy?' };
+  return { emoji: '🐾', title: '¡Hola!', text: '¿Qué aventura tenemos hoy?' };
 }
 
 function getVibe(stats, sleeping) {
@@ -228,7 +228,7 @@ function App() {
     tapSound.play();
     playAction(game.sleeping ? 'pet-sleep' : 'pet-hop', game.sleeping ? 900 : 900);
     setGame((prev) => ({ ...prev, ...careRewardFields(prev), stats: { ...prev.stats, fun: clamp(prev.stats.fun + (prev.sleeping ? 1 : 2)) } }));
-    notify(game.sleeping ? 'Shhh… un cariño suavecito. 💤' : '¡Qué cosquillas! 🐾');
+    notify(game.sleeping ? 'Shhh… una caricia suave. 💤' : '¡Qué cosquillas! 🐾');
   };
 
   const applyItem = (item) => {
@@ -241,7 +241,7 @@ function App() {
       return;
     }
     if (item.id === 'medkit' && game.stats.health >= 98) {
-      notify('Ya está estupenda. Guarda el botiquín para cuando haga falta.');
+      notify('La salud ya está casi al máximo. Guarda el botiquín para cuando haga falta.');
       return;
     }
     setGame((prev) => {
@@ -274,16 +274,18 @@ function App() {
   };
 
   const buyItem = (item) => {
-    let bought = false;
-    setGame((prev) => {
-      if (prev.coins < item.price) return prev;
-      bought = true;
-      return { ...prev, coins: prev.coins - item.price, inventory: { ...prev.inventory, [item.id]: (prev.inventory[item.id] || 0) + 1 } };
-    });
-    if (!bought) {
+    if (game.coins < item.price) {
       notify('Te faltan monedas. ¡Prueba un minijuego para ganar más!');
       return;
     }
+    setGame((prev) => {
+      if (prev.coins < item.price) return prev;
+      return {
+        ...prev,
+        coins: prev.coins - item.price,
+        inventory: { ...prev.inventory, [item.id]: (prev.inventory[item.id] || 0) + 1 },
+      };
+    });
     successSound.play();
     notify(`${item.name} añadido al inventario.`);
   };
@@ -293,20 +295,23 @@ function App() {
       if (game.equippedSkin !== skin.id) playAction('pet-sparkle', 1100);
       setGame((prev) => ({ ...prev, equippedSkin: skin.id }));
       successSound.play();
-      notify(`${skin.name} está lista para la aventura.`);
+      notify(`Apariencia activada: ${skin.name}.`);
       return;
     }
-    let unlocked = false;
-    setGame((prev) => {
-      if (prev.unlockedSkins.includes(skin.id)) return { ...prev, equippedSkin: skin.id };
-      if (prev.coins < skin.price) return prev;
-      unlocked = true;
-      return { ...prev, coins: prev.coins - skin.price, unlockedSkins: [...prev.unlockedSkins, skin.id], equippedSkin: skin.id };
-    });
-    if (!unlocked && game.coins < skin.price) {
+    if (game.coins < skin.price) {
       notify('Todavía faltan algunas monedas para desbloquear esta apariencia.');
       return;
     }
+    setGame((prev) => {
+      if (prev.unlockedSkins.includes(skin.id)) return { ...prev, equippedSkin: skin.id };
+      if (prev.coins < skin.price) return prev;
+      return {
+        ...prev,
+        coins: prev.coins - skin.price,
+        unlockedSkins: [...prev.unlockedSkins, skin.id],
+        equippedSkin: skin.id,
+      };
+    });
     playAction('pet-sparkle', 1100);
     successSound.play();
     notify(`¡Desbloqueaste ${skin.name}!`);
@@ -387,17 +392,18 @@ function App() {
   const openGames = (gameId = '') => {
     rewardLock.current = false;
     setActiveMiniGame(gameId);
+    setView('games');
     setModal('games');
   };
 
-  const roomNote = game.sleeping ? 'La habitación está tranquila: tu mascota está descansando.' : 'Una habitación pequeñita para aventuras enormes.';
+  const roomNote = game.sleeping ? 'La habitación está tranquila: tu mascota está descansando.' : 'Un refugio acogedor para grandes aventuras.';
 
   return (
     <div className={`app-shell ${game.sleeping ? 'is-sleeping' : ''}`}>
       <header className="topbar">
         <div className="brand-lockup" onClick={() => navTo('room')} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && navTo('room')}>
           <div className="brand-mark">🐾</div>
-          <div><div className="brand-name">Tango<span>World</span></div><div className="brand-tagline">tu pequeña gran aventura</div></div>
+          <div><div className="brand-name">Tango<span>World</span></div><div className="brand-tagline">tu gran aventura</div></div>
         </div>
         <div className="top-actions">
           <button className="daily-button" onClick={takeDailyBonus} title="Recoge tus monedas diarias"><span>🎁</span><span className="hide-small">Regalo diario</span></button>
@@ -428,11 +434,11 @@ function App() {
           </div>
 
           <div className="care-section">
-            <div className="section-title-row"><div><h2>Cuidados rápidos</h2><p>Pequeños gestos, grandes sonrisas.</p></div><span className="section-ornament">✳</span></div>
+            <div className="section-title-row"><div><h2>Cuidados rápidos</h2><p>Cada cuidado cuenta.</p></div><span className="section-ornament">✳</span></div>
             <div className="care-actions">
               <button className="care-action food-action" onClick={() => setModal('food')}><span className="care-emoji">🍎</span><span className="care-label">Comida</span><span className="care-sublabel">Dale energía</span></button>
               <button className={`care-action sleep-action ${game.sleeping ? 'active-action' : ''}`} onClick={toggleSleep}><span className="care-emoji">{game.sleeping ? '☀️' : '🌙'}</span><span className="care-label">{game.sleeping ? 'Despertar' : 'Dormir'}</span><span className="care-sublabel">{game.sleeping ? 'Ya descansó' : 'Recarga energía'}</span></button>
-              <button className="care-action health-action" onClick={() => { if ((game.inventory.medkit || 0) > 0) applyItem(ITEMS.find((i) => i.id === 'medkit')); else { setModal('shop'); setShopFilter('Cuidados'); } }}><span className="care-emoji">🩹</span><span className="care-label">Salud</span><span className="care-sublabel">Mímalo un poco</span></button>
+              <button className="care-action health-action" onClick={() => { if ((game.inventory.medkit || 0) > 0) applyItem(ITEMS.find((i) => i.id === 'medkit')); else { setModal('shop'); setShopFilter('Cuidados'); } }}><span className="care-emoji">🩹</span><span className="care-label">Salud</span><span className="care-sublabel">Cuida su bienestar</span></button>
               <button className="care-action bath-action" onClick={openBath}><span className="care-emoji">🫧</span><span className="care-label">Baño</span><span className="care-sublabel">Brilla otra vez</span></button>
               <button className="care-action play-action" onClick={() => openGames()}><span className="care-emoji">🎾</span><span className="care-label">Jugar</span><span className="care-sublabel">¡A divertirse!</span></button>
             </div>
@@ -446,19 +452,19 @@ function App() {
             <div className="stat-list">{Object.entries(STAT_META).map(([key, meta]) => {
               const raw = game.stats[key];
               const value = key === 'dirt' ? 100 - raw : raw;
-              const display = key === 'dirt' ? (raw < 25 ? 'Impecable' : raw < 60 ? 'Necesita baño' : '¡Muy sucio!') : value < 22 ? 'Bajito' : value < 55 ? 'Regular' : value > 82 ? 'Genial' : 'Bien';
+              const display = key === 'dirt' ? (raw < 25 ? 'Impecable' : raw < 60 ? 'Necesita baño' : 'Necesita limpieza') : value < 22 ? 'Nivel bajo' : value < 55 ? 'Regular' : value > 82 ? 'Genial' : 'Bien';
               return <div className="stat-row" key={key}><div className="stat-topline"><div className="stat-name"><span className={`stat-icon stat-${meta.color}`}>{meta.icon}</span><span>{meta.label}</span></div><span className="stat-value">{Math.round(key === 'dirt' ? 100 - raw : raw)}<small>/100</small></span></div><div className="stat-track"><div className={`stat-fill fill-${meta.color}`} style={{ width: `${clamp(value)}%` }} /></div><div className="stat-foot"><span>{display}</span><span>{key === 'dirt' ? 'limpieza' : 'nivel'}</span></div></div>;
             })}</div>
-            <div className="status-tip"><span>💡</span><p>{game.sleeping ? 'Mientras duerme, recupera energía lentamente.' : 'Las necesidades cambian con el tiempo. ¡Un ratito de cuidado hace la diferencia!'}</p></div>
+            <div className="status-tip"><span>💡</span><p>{game.sleeping ? 'Mientras duerme, recupera energía lentamente.' : 'Las necesidades cambian con el tiempo. ¡Cada gesto de cuidado hace la diferencia!'}</p></div>
           </section>
 
           <section className="inventory-card">
-            <div className="side-card-heading"><div><span className="section-kicker">MOCHILA</span><h2>Mis cositas</h2></div><span className="inventory-count">{totalItems} <small>objetos</small></span></div>
+            <div className="side-card-heading"><div><span className="section-kicker">MOCHILA</span><h2>Mis objetos</h2></div><span className="inventory-count">{totalItems} <small>objetos</small></span></div>
             <div className="inventory-items">{ITEMS.filter((item) => (game.inventory[item.id] || 0) > 0).slice(0, 4).map((item) => <button key={item.id} className="inventory-item" title={`${item.name}: ${game.inventory[item.id]}`} onClick={() => item.category === 'Comida' ? setModal('food') : item.id === 'soap' ? openBath() : applyItem(item)}><span>{item.icon}</span><small>{game.inventory[item.id]}</small></button>)}<button className="inventory-add" onClick={() => setModal('shop')} aria-label="Abrir tienda">＋</button></div>
             <button className="text-link" onClick={() => setModal('shop')}>Ver tienda completa <span>↗</span></button>
           </section>
 
-          <section className="quest-card"><div className="quest-spark">✧</div><div className="quest-copy"><span className="section-kicker">RETO DEL DÍA</span><h3>Un ratito de diversión</h3><p>Juega un minijuego y gana monedas para tu próxima sorpresa.</p><button className="quest-button" onClick={() => openGames()}>Aceptar reto <span>→</span></button></div><div className="quest-art">🎮</div></section>
+          <section className="quest-card"><div className="quest-spark">✧</div><div className="quest-copy"><span className="section-kicker">RETO DEL DÍA</span><h3>Un momento de diversión</h3><p>Juega un minijuego y gana monedas para tu próxima sorpresa.</p><button className="quest-button" onClick={() => openGames()}>Aceptar reto <span>→</span></button></div><div className="quest-art">🎮</div></section>
         </aside>
       </main>
 
@@ -512,22 +518,22 @@ function FxBurst({ kind }) {
 
 function FoodModal({ inventory, onUse, onShop }) {
   const foodItems = ITEMS.filter((item) => item.category === 'Comida');
-  return <><div className="modal-eyebrow">HORA DE COMER</div><h2>¿Qué se te antoja?</h2><p className="modal-intro">Una pancita feliz empieza con un buen bocadito.</p><div className="food-grid">{foodItems.map((item) => <div className="food-tile" key={item.id}><span className="food-art">{item.icon}</span><div className="food-info"><strong>{item.name}</strong><p>{item.desc}</p><small>+{item.effects.hunger} hambre{item.effects.fun ? ` · +${item.effects.fun} diversión` : ''}</small></div><div className="food-action-area"><span className="quantity-chip">×{inventory[item.id] || 0}</span><button className="primary-small" disabled={(inventory[item.id] || 0) < 1} onClick={() => onUse(item)}>Dar</button></div></div>)}</div><div className="modal-bottom-row"><button className="secondary-button" onClick={onShop}>Conseguir más comida ↗</button><span className="helper-note">Los objetos se guardan en tu mochila.</span></div></>;
+  return <><div className="modal-eyebrow">HORA DE COMER</div><h2>¿Qué se te antoja?</h2><p className="modal-intro">Una buena comida aporta energía y bienestar.</p><div className="food-grid">{foodItems.map((item) => <div className="food-tile" key={item.id}><span className="food-art">{item.icon}</span><div className="food-info"><strong>{item.name}</strong><p>{item.desc}</p><small>+{item.effects.hunger} hambre{item.effects.fun ? ` · +${item.effects.fun} diversión` : ''}</small></div><div className="food-action-area"><span className="quantity-chip">×{inventory[item.id] || 0}</span><button className="primary-small" disabled={(inventory[item.id] || 0) < 1} onClick={() => onUse(item)}>Dar</button></div></div>)}</div><div className="modal-bottom-row"><button className="secondary-button" onClick={onShop}>Conseguir más comida ↗</button><span className="helper-note">Los objetos se guardan en tu mochila.</span></div></>;
 }
 
 function BathModal({ step, started, soap, onScrub, onShop, onClose }) {
   const done = step >= 3;
-  return <><div className="modal-eyebrow">SPA PARA MASCOTAS</div><h2>¡Hora del baño!</h2><p className="modal-intro">Un baño rápido para dejar el pelaje reluciente.</p><div className={`bath-visual ${done ? 'bath-done' : ''}`}><div className="bath-bubble bubble-a">○</div><div className="bath-bubble bubble-b">✧</div><div className="bath-tub">🛁</div><div className="bath-pet">{done ? '✨' : step > 0 ? '🫧' : '🐶'}</div><div className="bath-bubble bubble-c">○</div></div><div className="bath-progress-row"><strong>{done ? '¡Baño terminado!' : `Paso ${step + 1} de 3`}</strong><span>{done ? 'Mascota impecable' : `${Math.round((step / 3) * 100)}%`}</span></div><div className="bath-track"><div style={{ width: `${(step / 3) * 100}%` }} /></div>{!done ? <><p className="bath-instruction">{step === 0 ? 'Empieza con un poco de jabón suave.' : step === 1 ? '¡Muy bien! Frota con cuidado.' : 'Un último enjuague y listo.'}</p><button className="primary-button full-button" onClick={onScrub} disabled={soap < 1 && !started}>{soap < 1 && !started ? 'Necesitas jabón' : step === 0 ? 'Aplicar jabón y lavar' : step === 1 ? 'Seguir lavando' : 'Enjuagar y terminar'} <span>✦</span></button>{soap < 1 && !started && <button className="text-link centered-link" onClick={onShop}>Comprar jabón suave ↗</button>}</> : <button className="primary-button full-button" onClick={onClose}>¡Listo, qué limpito! <span>♡</span></button>}</>;
+  return <><div className="modal-eyebrow">SPA PARA MASCOTAS</div><h2>¡Hora del baño!</h2><p className="modal-intro">Un baño rápido para dejar el pelaje reluciente.</p><div className={`bath-visual ${done ? 'bath-done' : ''}`}><div className="bath-bubble bubble-a">○</div><div className="bath-bubble bubble-b">✧</div><div className="bath-tub">🛁</div><div className="bath-pet">{done ? '✨' : step > 0 ? '🫧' : '🐶'}</div><div className="bath-bubble bubble-c">○</div></div><div className="bath-progress-row"><strong>{done ? '¡Baño terminado!' : `Paso ${step + 1} de 3`}</strong><span>{done ? 'Mascota impecable' : `${Math.round((step / 3) * 100)}%`}</span></div><div className="bath-track"><div style={{ width: `${(step / 3) * 100}%` }} /></div>{!done ? <><p className="bath-instruction">{step === 0 ? 'Empieza con un poco de jabón suave.' : step === 1 ? '¡Muy bien! Frota con cuidado.' : 'Un último enjuague y listo.'}</p><button className="primary-button full-button" onClick={onScrub} disabled={soap < 1 && !started}>{soap < 1 && !started ? 'Necesitas jabón' : step === 0 ? 'Aplicar jabón y lavar' : step === 1 ? 'Seguir lavando' : 'Enjuagar y terminar'} <span>✦</span></button>{soap < 1 && !started && <button className="text-link centered-link" onClick={onShop}>Comprar jabón suave ↗</button>}</> : <button className="primary-button full-button" onClick={onClose}>¡Listo, quedó impecable! <span>♡</span></button>}</>;
 }
 
 function ShopModal({ items, inventory, coins, filter, onFilter, onBuy }) {
   const categories = ['Todo', 'Comida', 'Cuidados', 'Juguetes'];
   const visibleItems = items.filter((item) => filter === 'Todo' || item.category === filter);
-  return <><div className="modal-eyebrow">UN MERCADITO MUY ESPECIAL</div><div className="modal-title-line"><div><h2>La tiendita</h2><p className="modal-intro">Pequeñas cosas para cuidar y sorprender.</p></div><div className="coin-pill modal-coins"><span className="coin-icon">✦</span><strong>{coins}</strong></div></div><div className="filter-pills">{categories.map((cat) => <button key={cat} className={filter === cat ? 'filter-active' : ''} onClick={() => onFilter(cat)}>{cat}</button>)}</div><div className="shop-grid">{visibleItems.map((item) => <article className="shop-item-card" key={item.id}><div className="shop-item-top"><span className="shop-item-art">{item.icon}</span><span className="shop-category">{item.category}</span></div><h3>{item.name}</h3><p>{item.desc}</p><div className="shop-item-bottom"><div><strong className="item-price">✦ {item.price}</strong><small>En mochila: {inventory[item.id] || 0}</small></div><button className="buy-button" onClick={() => onBuy(item)} disabled={coins < item.price}>Comprar</button></div></article>)}</div><p className="shop-note">Todo se compra con monedas del juego. No hay compras reales.</p></>;
+  return <><div className="modal-eyebrow">LA TIENDA DE TANGO</div><div className="modal-title-line"><div><h2>La tienda</h2><p className="modal-intro">Objetos para cuidar y sorprender.</p></div><div className="coin-pill modal-coins"><span className="coin-icon">✦</span><strong>{coins}</strong></div></div><div className="filter-pills">{categories.map((cat) => <button key={cat} className={filter === cat ? 'filter-active' : ''} onClick={() => onFilter(cat)}>{cat}</button>)}</div><div className="shop-grid">{visibleItems.map((item) => <article className="shop-item-card" key={item.id}><div className="shop-item-top"><span className="shop-item-art">{item.icon}</span><span className="shop-category">{item.category}</span></div><h3>{item.name}</h3><p>{item.desc}</p><div className="shop-item-bottom"><div><strong className="item-price">✦ {item.price}</strong><small>En mochila: {inventory[item.id] || 0}</small></div><button className="buy-button" onClick={() => onBuy(item)} disabled={coins < item.price}>Comprar</button></div></article>)}</div><p className="shop-note">Todo se compra con monedas del juego. No hay compras reales.</p></>;
 }
 
 function WardrobeModal({ skins, unlocked, equipped, coins, onChoose }) {
-  return <><div className="modal-eyebrow">ARMARIO DE AVENTURAS</div><div className="modal-title-line"><div><h2>El vestidor</h2><p className="modal-intro">Cada apariencia es un PNG original completo.</p></div><div className="coin-pill modal-coins"><span className="coin-icon">✦</span><strong>{coins}</strong></div></div><div className="wardrobe-grid">{skins.map((skin) => { const owned = unlocked.includes(skin.id); const active = equipped === skin.id; return <article className={`skin-card ${active ? 'skin-equipped' : ''}`} key={skin.id}><div className="skin-preview"><img src={`/assets/pets/${skin.id}.png`} alt={`Vista previa: ${skin.name}`} loading="lazy" />{active && <span className="equipped-badge">✓ Equipada</span>}{!owned && <span className="skin-price-badge">✦ {skin.price}</span>}</div><div className="skin-copy"><div className="skin-name-row"><h3>{skin.name}</h3><span className={`rarity rarity-${skin.rarity.toLowerCase()}`}>{skin.rarity}</span></div><p>{skin.desc}</p><button className={active ? 'equipped-button' : owned ? 'secondary-button skin-button' : 'buy-button skin-button'} onClick={() => onChoose(skin)}>{active ? 'En uso ✓' : owned ? 'Equipar' : `Desbloquear · ✦ ${skin.price}`}</button></div></article>; })}</div></>;
+  return <><div className="modal-eyebrow">ARMARIO DE AVENTURAS</div><div className="modal-title-line"><div><h2>El vestidor</h2><p className="modal-intro">Cada apariencia es un PNG original completo.</p></div><div className="coin-pill modal-coins"><span className="coin-icon">✦</span><strong>{coins}</strong></div></div><div className="wardrobe-grid">{skins.map((skin) => { const owned = unlocked.includes(skin.id); const active = equipped === skin.id; return <article className={`skin-card ${active ? 'skin-equipped' : ''}`} key={skin.id}><div className="skin-preview"><img src={`/assets/pets/${skin.id}.png`} alt={`Vista previa: ${skin.name}`} loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = "/assets/pets/dog_star.png"; }} />{active && <span className="equipped-badge">✓ En uso</span>}{!owned && <span className="skin-price-badge">✦ {skin.price}</span>}</div><div className="skin-copy"><div className="skin-name-row"><h3>{skin.name}</h3><span className={`rarity rarity-${skin.rarity.toLowerCase()}`}>{skin.rarity}</span></div><p>{skin.desc}</p><button className={active ? 'equipped-button' : owned ? 'secondary-button skin-button' : 'buy-button skin-button'} onClick={() => onChoose(skin)}>{active ? 'En uso ✓' : owned ? 'Equipar' : `Desbloquear · ✦ ${skin.price}`}</button></div></article>; })}</div></>;
 }
 
 function SettingsModal({ muted, onMute, onReset, onClose }) {
@@ -535,7 +541,7 @@ function SettingsModal({ muted, onMute, onReset, onClose }) {
 }
 
 function GamesModal({ active, onSelect, onBack, onFinish }) {
-  if (!active) return <><div className="modal-eyebrow">PEQUEÑAS AVENTURAS</div><h2>¡Hora de jugar!</h2><p className="modal-intro">Diviértete un ratito y gana monedas para tu próxima compra.</p><div className="minigame-grid"><button className="minigame-card stars-card" onClick={() => onSelect('stars')}><span className="minigame-art">🌟</span><span className="minigame-tag">Reflejos</span><strong>Atrapa las estrellas</strong><p>Mueve la cesta y recoge estrellas sin tocar las piedras.</p><span className="minigame-reward">✦ Hasta 35 monedas</span><span className="minigame-arrow">↗</span></button><button className="minigame-card memory-card" onClick={() => onSelect('memory')}><span className="minigame-art">🃏</span><span className="minigame-tag">Memoria</span><strong>Parejas mágicas</strong><p>Encuentra los pares de cartas con menos intentos.</p><span className="minigame-reward">✦ Hasta 25 monedas</span><span className="minigame-arrow">↗</span></button><button className="minigame-card run-card" onClick={() => onSelect('run')}><span className="minigame-art">🏃</span><span className="minigame-tag">Acción</span><strong>Carrera de obstáculos</strong><p>Salta, esquiva y consigue puntos en el recorrido.</p><span className="minigame-reward">✦ Hasta 30 monedas</span><span className="minigame-arrow">↗</span></button></div><div className="games-footer-note"><span>🎮</span> Se puede jugar con teclado, ratón o pantalla táctil.</div></>;
+  if (!active) return <><div className="modal-eyebrow">MINIJUEGOS</div><h2>¡Hora de jugar!</h2><p className="modal-intro">Diviértete un momento y gana monedas para tu próxima compra.</p><div className="minigame-grid"><button className="minigame-card stars-card" onClick={() => onSelect('stars')}><span className="minigame-art">🌟</span><span className="minigame-tag">Reflejos</span><strong>Atrapa las estrellas</strong><p>Mueve la cesta y recoge estrellas sin tocar las piedras.</p><span className="minigame-reward">✦ Hasta 35 monedas</span><span className="minigame-arrow">↗</span></button><button className="minigame-card memory-card" onClick={() => onSelect('memory')}><span className="minigame-art">🃏</span><span className="minigame-tag">Memoria</span><strong>Parejas mágicas</strong><p>Encuentra los pares de cartas con menos intentos.</p><span className="minigame-reward">✦ Hasta 25 monedas</span><span className="minigame-arrow">↗</span></button><button className="minigame-card run-card" onClick={() => onSelect('run')}><span className="minigame-art">🏃</span><span className="minigame-tag">Acción</span><strong>Carrera de obstáculos</strong><p>Salta, esquiva y consigue puntos en el recorrido.</p><span className="minigame-reward">✦ Hasta 30 monedas</span><span className="minigame-arrow">↗</span></button></div><div className="games-footer-note"><span>🎮</span> Se puede jugar con teclado, ratón o pantalla táctil.</div></>;
   return <MiniGame key={active} mode={active} onBack={onBack} onFinish={onFinish} />;
 }
 
