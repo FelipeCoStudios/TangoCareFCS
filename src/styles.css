@@ -24,8 +24,8 @@
 }
 
 * { box-sizing: border-box; }
-html { min-width: 320px; background: #f5f4fb; }
-body { margin: 0; min-width: 320px; min-height: 100vh; }
+html { min-width: 0; overflow-x: clip; background: #f5f4fb; }
+body { margin: 0; min-width: 0; min-height: 100vh; overflow-x: clip; }
 button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 button:focus-visible, [role="button"]:focus-visible { outline: 3px solid #b5b0ff; outline-offset: 3px; }
 button:disabled { opacity: .42; cursor: not-allowed; }
@@ -366,7 +366,10 @@ button:disabled { opacity: .42; cursor: not-allowed; }
 @media (max-width: 580px) {
   .app-shell { padding: 0 12px 95px; }
   .topbar { height: 76px; gap: 7px; }
-  .brand-lockup { gap: 8px; }
+  .brand-lockup { gap: 8px; min-width: 0; flex: 1 1 auto; }
+  .brand-name { white-space: nowrap; }
+  .brand-tagline { max-width: 145px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .top-actions { flex: 0 0 auto; }
   .brand-mark { width: 38px; height: 38px; border-radius: 13px; font-size: 20px; }
   .brand-name { font-size: 21px; }
   .brand-tagline { font-size: 8px; letter-spacing: .7px; margin-top: 4px; }
@@ -394,10 +397,10 @@ button:disabled { opacity: .42; cursor: not-allowed; }
   .room-footer { height: 37px; font-size: 8px; }.online-status { font-size: 7px; letter-spacing: .1px; }
   .care-section { margin-top: 23px; }
   .section-title-row { margin: 0 3px 11px; }.section-title-row h2 { font-size: 17px; }.section-title-row p { font-size: 10px; }
-  .care-actions { grid-template-columns: repeat(5, minmax(0,1fr)); gap: 5px; }
-  .care-action { min-height: 97px; border-radius: 14px; padding: 8px 2px 7px; gap: 3px; }
+  .care-actions { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 6px; }
+  .care-action { min-height: 103px; border-radius: 14px; padding: 8px 4px 7px; gap: 3px; }
   .care-emoji { width: 36px; height: 36px; border-radius: 12px; font-size: 19px; margin-bottom: 3px; }
-  .care-label { font-size: 9px; }.care-sublabel { display: none; }
+  .care-label { font-size: 10px; }.care-sublabel { display: block; font-size: 9px; line-height: 1.2; white-space: normal; }
   .side-column { grid-template-columns: minmax(0,1fr); gap: 13px; }
   .status-card { grid-row: auto; padding: 17px 16px 15px; }
   .side-card-heading h2 { font-size: 17px; }
@@ -420,7 +423,7 @@ button:disabled { opacity: .42; cursor: not-allowed; }
   .food-info strong { font-size: 11px; }.food-info p { font-size: 9px; }.food-info small { font-size: 8px; }
   .food-action-area { gap: 5px; flex-direction: column; align-items: flex-end; }.quantity-chip { font-size: 9px; }.primary-small { min-width: 49px; padding: 7px 8px; }
   .modal-bottom-row { align-items: flex-start; flex-direction: column; }.helper-note { font-size: 8px; }
-  .shop-grid { gap: 8px; }.shop-item-card { padding: 10px; }.shop-item-art { width: 40px; height: 40px; font-size: 22px; }.shop-category { font-size: 7px; }.shop-item-card h3 { font-size: 11px; }.shop-item-card p { font-size: 8px; }.shop-item-bottom { gap: 4px; }.item-price { font-size: 10px; }.buy-button { padding: 8px; font-size: 8px; }
+  .shop-grid { gap: 8px; }.shop-item-card { padding: 10px; }.shop-item-art { width: 40px; height: 40px; font-size: 22px; }.shop-category { font-size: 7px; }.shop-item-card h3 { font-size: 12px; line-height: 1.25; }.shop-item-card p { font-size: 9px; line-height: 1.4; }.shop-item-bottom { gap: 4px; }.item-price { font-size: 10px; }.shop-item-bottom small { font-size: 8px; }.buy-button { padding: 8px; font-size: 9px; }
   .wardrobe-grid { gap: 9px; }.skin-preview { height: 122px; }.skin-preview img { max-height: 111px; max-width: 82%; }.skin-copy { padding: 9px; }.skin-name-row { align-items: flex-start; flex-direction: column; gap: 4px; }.skin-name-row h3 { font-size: 11px; }.skin-copy p { font-size: 8px; min-height: 37px; }.skin-button, .equipped-button { font-size: 8px; }.equipped-badge, .skin-price-badge { top: 6px; right: 5px; font-size: 7px; }
   .minigame-grid { grid-template-columns: minmax(0,1fr); gap: 8px; }.minigame-card { min-height: 110px; padding: 11px 11px 11px 80px; }.minigame-art { position: absolute; left: 11px; top: 17px; width: 56px; height: 56px; margin: 0; font-size: 27px; }.minigame-tag { font-size: 7px; }.minigame-card strong { font-size: 12px; }.minigame-card p { margin: 4px 0 8px; font-size: 9px; }.minigame-reward { font-size: 8px; }.minigame-arrow { top: 12px; right: 11px; }
   .game-hud { gap: 5px; }.game-hud span { padding: 7px 8px; font-size: 8px; }
@@ -432,10 +435,16 @@ button:disabled { opacity: .42; cursor: not-allowed; }
 }
 @media (max-width: 370px) {
   .app-shell { padding-left: 8px; padding-right: 8px; }
-  .brand-name { font-size: 19px; }.brand-tagline { font-size: 7px; }
-  .brand-mark { width: 34px; height: 34px; }.top-actions { gap: 4px; }.coin-pill { padding: 0 7px; }
+  .topbar { gap: 5px; }
+  .brand-lockup { gap: 5px; }
+  .brand-name { font-size: 16px; letter-spacing: -.4px; }.brand-tagline { display: none; }
+  .brand-mark { width: 30px; height: 30px; border-radius: 10px; font-size: 17px; }
+  .top-actions { gap: 3px; }
+  .daily-button, .icon-button { width: 29px; height: 29px; min-width: 29px; padding: 0; border-radius: 9px; }
+  .coin-pill { height: 29px; min-width: 44px; gap: 4px; padding: 0 5px; }
+  .coin-icon { font-size: 12px; }.coin-pill strong { font-size: 11px; }
   .room-heading h1 { font-size: 18px; }.room-heading p { max-width: 155px; font-size: 9px; }.mood-pill { font-size: 8px; }
-  .care-actions { gap: 4px; }.care-label { font-size: 8px; }.care-emoji { width: 32px; height: 32px; font-size: 17px; }
+  .care-actions { gap: 5px; }.care-label { font-size: 10px; }.care-sublabel { font-size: 9px; }.care-emoji { width: 32px; height: 32px; font-size: 17px; }
   .bottom-nav button small { font-size: 8px; }.scene-wrap { min-height: 230px; }
 }
 
